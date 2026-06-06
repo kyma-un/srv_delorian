@@ -1,4 +1,9 @@
-# Ram 
+<div align="center">
+
+<h1>Servicio - Ram</h1>
+
+ </div>
+
 Ram (Robot agrícola motorizado) es un servicio diseñado para apoyar a un estudiante de maestría en biosistemas en el desarrollo y validación de su tesis, en la que se quieren explorar algoritmos de planificación de movimiento en escenarios agrícolas. Para ello, surge la necesidad de contar con un vehículo móvil autónomo que permita probar en campo algoritmos de navegación, evasión de obstáculos y telemetría en condiciones reales de polvo, humedad y vegetación.
 
 Los objetivos del servicio se enfocan en entregar un vehículo móvil agrícola funcional que opere tanto en modo teleoperado como en modo autónomo, proveer canal de telemetría en tiempo real de variables críticas (pose, sensores, energía y estado del sistema) y facilitar un entorno experimental para validar y comparar algoritmos de planificación de movimiento. Así mismo, ofrecer soporte técnico en mecánica, electrónica y software; asegurar estabilidad y seguridad en campo; y generar documentación, protocolos de prueba y datos experimentales que el estudiante pueda usar directamente en su investigación. El servicio está pensado para satisfacer requisitos prácticos como velocidades de trabajo bajas y controladas, sensores obligatorios para navegación y protección mínima contra polvo y salpicaduras.
