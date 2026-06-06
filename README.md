@@ -46,29 +46,29 @@ AAA
 
 ### Juan Andrés Mora Henao
 <div align="center">
-  <img src="images/JesusSanchez.jpeg" alt="Jesús_Sánchez" style="border-radius: 50%; width: 180px;"><br>
+  <img src="images/" alt="" style="border-radius: 50%; width: 180px;"><br>
 </div>
 
 - **Carrera:** Ingeniería Mecatrónica
-- **Correo institucional:** jesanchezco@unal.edu.co
-- **Usuario de GitHub:** [Kovoz](https://github.com/Kovoz)
-- **Rol en el equipo:** Ej. Modelado, redacción y edición de videos
-- **Intereses:** Estudiante interesado en el diseño de sistemas mecatrónicos y la robótica de servicio, con especial motivación en la robótica bioinspirada. 
+- **Correo institucional:** AAA
+- **Usuario de GitHub:** AAA
+- **Rol en el equipo:** AAA
+- **Intereses:** AAA
 - **Descripción breve:**  
-Me considero una persona con actitud positiva, dedicada y trabajadora. Además, destaco por mi atención a los detalles y mi compromiso para dar siempre lo mejor en cualquier proyecto o entorno. Poseo habilidades de liderazgo y trabajo en equipo, y me apasionan las matemáticas, la física, el diseño y la programación.
+AAA
 
 ---
 
 ### Yesid Camilo Ojeda Hernández
 <div align="center">
-  <img src="images/JesusSanchez.jpeg" alt="Jesús_Sánchez" style="border-radius: 50%; width: 180px;"><br>
+  <img src="images/" alt="" style="border-radius: 50%; width: 180px;"><br>
 </div>
 
 - **Carrera:** Ingeniería Mecatrónica
-- **Correo institucional:** jesanchezco@unal.edu.co
-- **Usuario de GitHub:** [Kovoz](https://github.com/Kovoz)
-- **Rol en el equipo:** Ej. Modelado, redacción y edición de videos
-- **Intereses:** Estudiante interesado en el diseño de sistemas mecatrónicos y la robótica de servicio, con especial motivación en la robótica bioinspirada. 
+- **Correo institucional:** AAA
+- **Usuario de GitHub:** AAA
+- **Rol en el equipo:** AAA
+- **Intereses:** AAA
 - **Descripción breve:**  
-Me considero una persona con actitud positiva, dedicada y trabajadora. Además, destaco por mi atención a los detalles y mi compromiso para dar siempre lo mejor en cualquier proyecto o entorno. Poseo habilidades de liderazgo y trabajo en equipo, y me apasionan las matemáticas, la física, el diseño y la programación. 
+AAA
 
