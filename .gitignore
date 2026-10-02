@@ -13,3 +13,12 @@ OldVersions/
 *.FNO
 *.RSF
 **/InCAD/FEA/
+
+# Python
+__pycache__/
+*.pyc
+
+# colcon
+build/
+install/
+log/

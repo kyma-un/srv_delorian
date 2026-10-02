@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!-- Descripcion fisica del Delorian: vale igual para el robot real y para simulacion. -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- ===== Parametros ===== -->
+    <xacro:property name="wheel_r" value="0.128"/>
+    <xacro:property name="wheel_w" value="0.168"/>
+    <xacro:property name="wheel_m" value="1.0"/>
+    <xacro:property name="wheelbase" value="0.526"/>   <!-- distancia eje delantero - eje trasero -->
+    <xacro:property name="track" value="0.480"/>       <!-- distancia rueda izquierda - rueda derecha -->
+
+    <!-- Centro de las 4 ruedas (a la altura del eje) expresado en el frame del CAD (Onshape) -->
+    <xacro:property name="cad_cx" value="0.3869"/>
+    <xacro:property name="cad_cy" value="0.0900"/>
+    <xacro:property name="cad_cz" value="-0.2351"/>
+    <!-- Giro para que +X de base_link sea el frente (REP-103).
+         -pi/2 si el frente es +Y del CAD, +pi/2 si es -Y del CAD. -->
+    <xacro:property name="chassis_yaw" value="${-pi/2}"/>
+
+    <!-- ===== base_footprint (proyeccion en el suelo) y base_link (centro, altura del eje) ===== -->
+    <link name="base_footprint"/>
+
+    <link name="base_link"/>
+    <joint name="base_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 ${wheel_r}" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ===== Chasis: numeros tal cual salen del CAD ===== -->
+    <link name="chassis">
+        <inertial>
+            <origin xyz="0.3869 0.0900 -0.1514" rpy="0 0 0"/>
+            <mass value="50"/>
+            <inertia ixx="4.179" ixy="0.0155" ixz="0.0001"
+                    iyy="3.258" iyz="-0.0001"
+                    izz="5.867"/>
+        </inertial>
+        <collision>
+            <origin xyz="0.387 0.090 -0.062" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.670 0.700 0.397"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+            <geometry>
+                <mesh filename="package://delorian_description/meshes/main_frame.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+    </link>
+    <!-- Lleva el centro de ruedas del CAD al origen de base_link: xyz = -Rz(yaw) * cad_c -->
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <xacro:property name="c_x" value="${-(cos(chassis_yaw)*cad_cx - sin(chassis_yaw)*cad_cy)}"/>
+        <xacro:property name="c_y" value="${-(sin(chassis_yaw)*cad_cx + cos(chassis_yaw)*cad_cy)}"/>
+        <origin xyz="${c_x} ${c_y} ${-cad_cz}" rpy="0 0 ${chassis_yaw}"/>
+    </joint>
+
+    <!-- ===== Ruedas ===== -->
+    <!-- side: 1 izquierda, -1 derecha. Si el cubo de la rueda queda mirando hacia adentro, cambia el signo del yaw del visual. -->
+    <xacro:macro name="wheel" params="name x side">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="${wheel_m}"/>
+                <inertia ixx="${wheel_m/12*(3*wheel_r**2 + wheel_w**2)}" ixy="0" ixz="0"
+                         iyy="${0.5*wheel_m*wheel_r**2}" iyz="0"
+                         izz="${wheel_m/12*(3*wheel_r**2 + wheel_w**2)}"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 ${side*pi/2}"/>
+                <geometry>
+                    <mesh filename="package://delorian_description/meshes/wheel.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+                <geometry>
+                    <cylinder radius="${wheel_r}" length="${wheel_w}"/>
+                </geometry>
+            </collision>
+        </link>
+        <joint name="${name}_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="${name}"/>
+            <origin xyz="${x} ${side*track/2} 0" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:wheel name="front_left_wheel"  x="${wheelbase/2}"  side="1"/>
+    <xacro:wheel name="rear_left_wheel"   x="${-wheelbase/2}" side="1"/>
+    <xacro:wheel name="front_right_wheel" x="${wheelbase/2}"  side="-1"/>
+    <xacro:wheel name="rear_right_wheel"  x="${-wheelbase/2}" side="-1"/>
+
+</robot>
