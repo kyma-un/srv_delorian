@@ -1,0 +1,15 @@
+# CAD nativo (Inventor) -> en la nube
+*.ipt
+*.iam
+*.idw
+*.ipj
+*.ipn
+OldVersions/
+
+# Resultados FEA
+*.nas
+*.OUT
+*.LOG
+*.FNO
+*.RSF
+**/InCAD/FEA/
