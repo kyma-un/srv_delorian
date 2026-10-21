@@ -29,7 +29,7 @@ def generate_launch_description():
         Command(['xacro ', xacro_file, ' sim:=true']), value_type=str)
 
     return LaunchDescription([
-        DeclareLaunchArgument('world', default_value='empty.sdf',
+        DeclareLaunchArgument('world', default_value=os.path.join(gz_pkg,'worlds','delorian.sdf'),
                               description='Mundo de gz sim (archivo .sdf)'),
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Abrir RViz junto a Gazebo'),

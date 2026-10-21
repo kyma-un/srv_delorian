@@ -47,6 +47,9 @@
             <geometry>
                 <mesh filename="package://delorian_description/meshes/main_frame.stl" scale="0.001 0.001 0.001"/>
             </geometry>
+            <material name="Metal">
+                <color rgba="0.3 0.3 0.3 1"/>
+            </material>
         </visual>
     </link>
     <!-- Lleva el centro de ruedas del CAD al origen de base_link: xyz = -Rz(yaw) * cad_c -->
@@ -74,6 +77,9 @@
                 <geometry>
                     <mesh filename="package://delorian_description/meshes/wheel.stl" scale="0.001 0.001 0.001"/>
                 </geometry>
+                <material name="Caucho rojo">
+                    <color rgba="0 0 0 1"/>
+                </material>
             </visual>
             <collision>
                 <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
@@ -95,4 +101,29 @@
     <xacro:wheel name="front_right_wheel" x="${wheelbase/2}"  side="-1"/>
     <xacro:wheel name="rear_right_wheel"  x="${-wheelbase/2}" side="-1"/>
 
+    <link name="oak_link">
+        <visual>
+            <geometry>
+                <box size="0.03 0.10 0.04"/>
+            </geometry>
+            <material name="rosado-raro">
+                
+                <color rgba="0.9 0.5 0.6 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint name="oak_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="oak_link"/>
+        <origin xyz="0.335 0 0.30" rpy="0 0 0"/>
+    </joint>
+    <link name="oak_optical_link">
+    </link>
+    <joint name="oak_optical_joint" type="fixed">
+        <parent link="oak_link"/>
+        <child link="oak_optical_link"/>
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+    </joint>
+        
+    
 </robot>
