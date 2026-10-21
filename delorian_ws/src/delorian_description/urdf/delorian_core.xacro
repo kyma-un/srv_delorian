@@ -122,7 +122,7 @@
     <joint name="oak_optical_joint" type="fixed">
         <parent link="oak_link"/>
         <child link="oak_optical_link"/>
-        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+        <origin xyz="0 0 0" rpy="${0} 0 ${0}"/>
     </joint>
         
     
