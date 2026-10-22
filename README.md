@@ -3,6 +3,12 @@
 <h1>Servicio - Delorian</h1>
 
  </div>                                                                                                                                          
+## Documentación
+
+- [Estructura del workspace ROS 2, tópicos y cómo lanzar la simulación](docs/estructura.md)
+
+---
+
 ## Descripción                                                                                                                                   
 Delorian (Robot agrícola motorizado) es un servicio diseñado para apoyar a un estudiante de maestría en biosistemas en el desarrollo y validaciónsu tesis, en la que se quieren explorar algoritmos de planienarios agrícolas. Para ello, surge la necesidad de contarcon un vehículo móvil autónomo que permita probar en campo algoritmos de navegación, evasión de obstáculos y telemetría en condiciones reales de polvo, humedad y vegetación.
 
