@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/home/jysusman/Kyma/srv_delorian/delorian_ws/src/delorian_description"
+    "cmake.sourceDirectory": "/home/jysusman/Kyma/srv_delorian/delorian_ws/src/delorian_description",
+    "python.analysis.extraPaths": ["/opt/ros/jazzy/lib/python3.12/site-packages"]
 }
