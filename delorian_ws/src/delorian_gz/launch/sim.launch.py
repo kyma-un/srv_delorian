@@ -5,7 +5,8 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import AppendEnvironmentVariable, DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
+                            IncludeLaunchDescription, SetEnvironmentVariable)
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration
@@ -36,6 +37,11 @@ def generate_launch_description():
 
         # Para que gz resuelva package://delorian_description/meshes/...
         AppendEnvironmentVariable('GZ_SIM_RESOURCE_PATH', os.path.dirname(desc_pkg)),
+
+        # gz-transport se anuncia por la primera interfaz que no sea lo, y si le toca
+        # el wifi los procesos de gz no se ven entre si: la ventana sale en negro y
+        # `create` se queda pidiendo mundos. Forzar loopback, que todo corre local.
+        SetEnvironmentVariable('GZ_IP', '127.0.0.1'),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(

@@ -63,13 +63,22 @@ resto del stack (rtabmap, Nav2) no cambie entre simulación y hardware.
 
 ## Cómo compilar y lanzar
 
-El desarrollo se hace dentro de la distrobox `ros2-iso` (Jazzy, home aislado):
+Requisito: ROS 2 Jazzy. Si tu distribución no es Ubuntu, mira [entorno.md](entorno.md).
+
+La primera vez, para instalar las dependencias declaradas en los `package.xml`
+(`xacro`, `ros_gz_sim`, `ros_gz_bridge`, `rtabmap_odom`, `rviz2`, ...):
 
 ```sh
-distrobox enter ros2-iso
-cd /home/jysusman/Kyma/srv_delorian/delorian_ws
+git clone git@github.com:kyma-un/srv_delorian.git
+cd srv_delorian/delorian_ws
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+Compilar, desde `delorian_ws`:
+
+```sh
 colcon build --symlink-install
-source install/setup.zsh
+source install/setup.bash   # o setup.zsh, según tu shell
 ```
 
 Solo el modelo en RViz, con sliders para mover las ruedas:

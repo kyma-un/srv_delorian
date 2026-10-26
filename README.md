@@ -6,6 +6,7 @@
 ## Documentación
 
 - [Estructura del workspace ROS 2, tópicos y cómo lanzar la simulación](docs/estructura.md)
+- [Entorno de desarrollo: ROS 2 Jazzy y contenedor distrobox](docs/entorno.md)
 
 ---
 
