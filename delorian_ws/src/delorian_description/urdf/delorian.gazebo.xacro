@@ -5,7 +5,8 @@
     <!-- Friccion de las ruedas. En skid-steer, si al girar vibra o no gira, baja mu2. -->
     <xacro:macro name="wheel_friction" params="name">
         <gazebo reference="${name}">
-            <mu1>1.0</mu1>
+            <fdir1>0 0 1</fdir1>
+            <mu1>0.4</mu1>
             <mu2>1.0</mu2>
         </gazebo>
     </xacro:macro>
