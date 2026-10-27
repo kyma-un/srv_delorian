@@ -69,6 +69,23 @@
                     <stddev>0.007</stddev>
                 </noise>
             </camera>
+
+        </sensor>      
+    </gazebo>
+    <gazebo reference="imu_link">
+        <sensor name="imu" type="imu">
+            <topic>imu/data</topic>
+            <gz_frame_id>imu_link</gz_frame_id>
+            <update_rate>100</update_rate>
+            <always_on>true</always_on>
+        </sensor>
+    </gazebo>
+    <gazebo reference="gps_link">
+        <sensor name="navsat" type="navsat">
+            <topic>gps/fix</topic>
+            <gz_frame_id>gps_link</gz_frame_id>
+            <update_rate>10</update_rate>
+            <always_on>true</always_on>
         </sensor>
     </gazebo>
 </robot>

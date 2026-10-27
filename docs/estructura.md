@@ -39,27 +39,64 @@ odom                      ← DiffDrive en Gazebo; el EKF en el robot real
            ├── rear_left_wheel      (-0.263,  0.24)
            ├── front_right_wheel    ( 0.263, -0.24)
            ├── rear_right_wheel     (-0.263, -0.24)
-           └── oak_link             cámara OAK-D S2 (0.335, 0, 0.30)
-                └── oak_optical_link   ejes ópticos (z adelante, x derecha, y abajo)
+           ├── oak_link             cámara OAK-D S2 (0.335, 0, 0.30)
+           │    └── oak_optical_link   ejes ópticos (z adelante, x derecha, y abajo)
+           ├── imu_link             IMU (0, 0, 0.05), sobre el centro de giro
+           └── gps_link             antena GPS (-0.15, 0, 0.35)
 ```
 
 Medidas: radio de rueda 0.128 m, ancho 0.168 m, distancia entre ejes 0.526 m, trocha 0.480 m.
 
 ## Tópicos en simulación
 
-| Tópico ROS 2 | Tipo | Origen |
-|---|---|---|
-| `/cmd_vel` | `geometry_msgs/Twist` | entrada al DiffDrive |
-| `/odometry/wheel` | `nav_msgs/Odometry` | DiffDrive (no se usa `/odom`: ese nombre es de `rgbd_odometry`) |
-| `/joint_states` | `sensor_msgs/JointState` | JointStatePublisher de gz |
-| `/tf` | `tf2_msgs/TFMessage` | odom → base_footprint del DiffDrive |
-| `/oak/rgb/image_raw` | `sensor_msgs/Image` | cámara simulada |
-| `/oak/depth/image_raw` | `sensor_msgs/Image` (32FC1) | cámara simulada |
-| `/oak/rgb/camera_info` | `sensor_msgs/CameraInfo` | cámara simulada |
-| `/oak/depth/points` | `sensor_msgs/PointCloud2` | cámara simulada |
+Agrupados por quién los produce. En el robot real cada grupo cambia de origen pero
+conserva el nombre y el tipo, así que el resto del sistema no se entera.
 
-Los nombres `/oak/*` son los mismos que publica `depthai-ros` en el robot real, para que el
-resto del stack (rtabmap, Nav2) no cambie entre simulación y hardware.
+**Control y estado**
+
+| Tópico ROS 2 | Tipo | En simulación | En el robot real |
+|---|---|---|---|
+| `/cmd_vel` | `geometry_msgs/Twist` | entrada al DiffDrive | micro-ROS → PID de la STM32 |
+| `/joint_states` | `sensor_msgs/JointState` | JointStatePublisher de gz | encoders por micro-ROS |
+| `/tf` | `tf2_msgs/TFMessage` | odom → base_footprint del DiffDrive | el filtro de fusión |
+| `/clock` | `rosgraph_msgs/Clock` | reloj de la simulación | no existe (se usa el del sistema) |
+
+**Odometría de ruedas**
+
+| Tópico ROS 2 | Tipo | En simulación | En el robot real |
+|---|---|---|---|
+| `/odometry/wheel` | `nav_msgs/Odometry` | DiffDrive de gz | encoders, por micro-ROS |
+
+No se llama `/odom` porque ese nombre lo usa `rgbd_odometry` para la odometría visual.
+
+**Cámara OAK-D S2**
+
+| Tópico ROS 2 | Tipo | En simulación | En el robot real |
+|---|---|---|---|
+| `/oak/rgb/image_raw` | `sensor_msgs/Image` | sensor `rgbd_camera` de gz | `depthai-ros` |
+| `/oak/depth/image_raw` | `sensor_msgs/Image` (32FC1) | sensor `rgbd_camera` de gz | `depthai-ros` |
+| `/oak/rgb/camera_info` | `sensor_msgs/CameraInfo` | sensor `rgbd_camera` de gz | `depthai-ros` |
+| `/oak/depth/points` | `sensor_msgs/PointCloud2` | sensor `rgbd_camera` de gz | `depthai-ros` |
+
+**IMU** — 100 Hz, frame `imu_link`
+
+| Tópico ROS 2 | Tipo | En simulación | En el robot real |
+|---|---|---|---|
+| `/imu/data` | `sensor_msgs/Imu` | sensor `imu` de gz | IMU en la STM32, por micro-ROS |
+
+El sensor simulado se dejó **sin ruido** a propósito: el ruido se añade aparte, controlado,
+para poder medir cuánto error mete el filtro. Gazebo publica también el campo
+`orientation`, que una IMU real cruda no entrega.
+
+**GPS** — 10 Hz, frame `gps_link`
+
+| Tópico ROS 2 | Tipo | En simulación | En el robot real |
+|---|---|---|---|
+| `/gps/fix` | `sensor_msgs/NavSatFix` | sensor `navsat` de gz | receptor GPS, por micro-ROS |
+
+El origen del mundo está fijado en `<spherical_coordinates>` del `delorian.sdf`
+(Universidad Nacional, Bogotá: 4.6381, -74.0845, 2600 m). Cambiarlo mueve el mundo
+entero sobre la Tierra, sin tocar el robot.
 
 ## Cómo compilar y lanzar
 
