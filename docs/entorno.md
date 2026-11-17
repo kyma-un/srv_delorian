@@ -110,6 +110,33 @@ a mano (`gz sim -s`, `gz sim -g`, `gz model --list`, ...). Comprobación rápida
 servidor corriendo: `gz model --list` debe listar los modelos del mundo en vez de dar
 `Service call to [/gazebo/worlds] timed out`.
 
+## Conexión remota por VPN
+
+Para correr la simulación en un PC y ver los tópicos (RViz, `ros2 topic`) desde otro.
+ROS 2 se descubre por multicast UDP, así que dos cosas pueden aislar las máquinas:
+
+**Firewall.** Si el equipo tiene `ufw` activo, bloquea el tráfico de DDS. En los dos
+equipos, permitir UDP desde la red local y desde la VPN:
+
+```sh
+sudo ufw allow from 192.168.2.0/24 proto udp comment 'ROS 2 DDS'   # cambiar por tu subred
+sudo ufw allow in on tailscale0 proto udp comment 'ROS 2 por Tailscale'
+```
+
+**Multicast en la VPN.** [Tailscale](https://tailscale.com/) no transporta multicast, así
+que por la VPN los nodos no se encuentran solos. Desde Jazzy basta con darle a cada
+máquina la IP de Tailscale de la otra (`tailscale ip -4`), dentro del contenedor:
+
+```sh
+export ROS_STATIC_PEERS="100.x.y.z"   # IP de Tailscale del otro equipo; varias con ';'
+```
+
+En la red local no estorba: el descubrimiento por multicast sigue funcionando igual. Las dos
+máquinas deben tener el mismo `ROS_DOMAIN_ID` (o ninguno).
+
+Comprobación: en un equipo `ros2 run demo_nodes_cpp talker`, en el otro
+`ros2 topic echo /chatter`.
+
 ## En la Raspberry Pi
 
 En el robot no hay simulación ni interfaz gráfica, y el espacio en la tarjeta importa.
