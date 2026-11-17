@@ -7,6 +7,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
                             IncludeLaunchDescription, SetEnvironmentVariable)
+
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration, PythonExpression
@@ -41,7 +42,12 @@ def generate_launch_description():
                               description='IP por la que se anuncia gz-transport (LAN o Tailscale para verlo desde otro PC)'),
         DeclareLaunchArgument('gui', default_value='true',
                               description='false = solo servidor de gz, sin ventana'),
-                              
+        DeclareLaunchArgument('gz_partition', default_value='delorian',
+                              description='Partición de gz-transport; igual en las dos máquinas'),
+        DeclareLaunchArgument('gz_relay', default_value='',
+                              description='IP del otro equipo para descubrir sin multicast (VPN)'),
+
+
         # Para que gz resuelva package://delorian_description/meshes/...
         AppendEnvironmentVariable('GZ_SIM_RESOURCE_PATH', os.path.dirname(desc_pkg)),
 
@@ -49,6 +55,10 @@ def generate_launch_description():
         # el wifi los procesos de gz no se ven entre si: la ventana sale en negro y
         # `create` se queda pidiendo mundos. Forzar loopback, que todo corre local.
         SetEnvironmentVariable('GZ_IP', LaunchConfiguration('gz_ip')),
+        SetEnvironmentVariable('GZ_PARTITION', LaunchConfiguration('gz_partition')),
+        SetEnvironmentVariable('GZ_RELAY', LaunchConfiguration('gz_relay'),
+                               condition=IfCondition(PythonExpression(
+                                   ["'", LaunchConfiguration('gz_relay'), "' != ''"]))),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(

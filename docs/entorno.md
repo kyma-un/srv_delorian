@@ -137,6 +137,53 @@ máquinas deben tener el mismo `ROS_DOMAIN_ID` (o ninguno).
 Comprobación: en un equipo `ros2 run demo_nodes_cpp talker`, en el otro
 `ros2 topic echo /chatter`.
 
+### Gazebo remoto
+
+La simulación (física y sensores) corre en un equipo y la ventana de Gazebo se abre en
+otro, que solo dibuja la escena. gz-transport tiene sus propias reglas, aparte de las de ROS:
+
+- Descubre por multicast UDP (puertos 10317/10318), pero manda los datos por **TCP** en
+  puertos aleatorios: en `ufw` hay que permitir también TCP.
+
+  ```sh
+  sudo ufw allow from 192.168.2.0/24 proto tcp comment 'gz-transport'
+  sudo ufw allow in on tailscale0 proto tcp comment 'gz-transport por Tailscale'
+  ```
+- `GZ_IP`: la IP por la que se anuncia cada equipo. `sim.launch.py` usa `127.0.0.1` por
+  defecto (ver la sección de la pantalla negra); para verlo desde fuera se le pasa
+  `gz_ip:=<IP>`.
+- `GZ_PARTITION`: si no se define, cada equipo usa `hostname:usuario` y se ignoran entre
+  sí. `sim.launch.py` pone `delorian`; el otro equipo debe usar la misma.
+- `GZ_RELAY`: la IP del otro equipo, necesaria por la VPN (sin multicast). En **los dos**
+  sentidos.
+
+En el equipo que simula (`gui:=false` corre solo el servidor; la cámara sigue
+renderizando con la GPU):
+
+```sh
+ros2 launch delorian_gz sim.launch.py gz_ip:=<IP propia> gz_relay:=<IP del otro> gui:=false rviz:=false
+```
+
+En el que mira:
+
+```sh
+GZ_PARTITION=delorian GZ_IP=<IP propia> GZ_RELAY=<IP del que simula> gz sim -g
+```
+
+**Mallas que no cargan.** El servidor manda las rutas de las mallas ya resueltas, con el
+home de su máquina (`/home/<usuario>/.gz/fuel/...`, `/home/<usuario>/srv_delorian/...`).
+Si en el que mira no existen, los árboles y conos (y el robot) no aparecen. Lo más simple
+es crear esas rutas con enlaces dentro del contenedor:
+
+```sh
+sudo mkdir -p /home/<usuario remoto>
+sudo ln -sfn ~/.gz /home/<usuario remoto>/.gz
+sudo ln -sfn <ruta de tu clon> /home/<usuario remoto>/srv_delorian
+```
+
+Los modelos de Fuel tienen que estar descargados también en el que mira (basta con haber
+lanzado `sim.launch.py` una vez).
+
 ## En la Raspberry Pi
 
 En el robot no hay simulación ni interfaz gráfica, y el espacio en la tarjeta importa.
