@@ -14,8 +14,10 @@ delorian_ws/src/
 │   ├── meshes/
 │   │   ├── main_frame.stl        malla del chasis (4 MB)
 │   │   └── wheel.stl             malla de la rueda (2 MB)
-│   ├── rviz/display.rviz         configuración de RViz
-│   └── launch/display.launch.py  solo RViz + joint_state_publisher_gui (sin física)
+│   ├── rviz/display.rviz         configuración de RViz (robot, TF, imagen y nube de puntos)
+│   ├── rviz/liviano.rviz         igual pero sin imagen ni nube, para mirar por la red
+│   ├── launch/display.launch.py  solo RViz + joint_state_publisher_gui (sin física)
+│   └── launch/rviz.launch.py     solo RViz, para mirar un robot que ya está corriendo
 │
 ├── delorian_gz/                simulación en Gazebo
 │   ├── worlds/delorian.sdf       mundo: suelo, sol, sistema Sensors y cajas de prueba
@@ -166,6 +168,18 @@ imágenes no cuadran con el reloj y no calcula nada):
 ```sh
 ros2 launch delorian_navigation odometry.launch.py use_sim_time:=true
 ```
+
+Solo RViz, para mirar la simulación (o el robot) que ya está corriendo, aquí o en otro
+equipo. Por defecto sin imagen ni nube de puntos, que no pasan bien por la red:
+
+```sh
+ros2 launch delorian_description rviz.launch.py
+ros2 launch delorian_description rviz.launch.py camara:=true          # con imagen y nube
+ros2 launch delorian_description rviz.launch.py use_sim_time:=false   # robot real
+```
+
+`display.launch.py` no sirve para esto: lanza su propio `robot_state_publisher` y los
+sliders, que chocan con el TF de la simulación.
 
 Teleoperar el robot:
 
