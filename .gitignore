@@ -22,3 +22,6 @@ __pycache__/
 build/
 install/
 log/
+
+# Configuración local del editor (ver docs/entorno.md)
+.vscode/

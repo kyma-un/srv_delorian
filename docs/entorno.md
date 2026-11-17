@@ -55,6 +55,28 @@ exit                       # salir
 podman start ros2-iso      # tras reiniciar el equipo, si no arranca solo
 ```
 
+## VS Code
+
+`.vscode/` no se versiona: cada uno tiene rutas y contenedores distintos. Una
+configuración útil para `.vscode/settings.json` (cambiar `ros2-iso` por el nombre de tu
+contenedor):
+
+```json
+{
+  "python.analysis.extraPaths": ["/opt/ros/jazzy/lib/python3.12/site-packages"],
+  "terminal.integrated.profiles.linux": {
+    "ros2-iso": { "path": "distrobox", "args": ["enter", "ros2-iso", "--", "zsh"], "icon": "package" }
+  },
+  "terminal.integrated.defaultProfile.linux": "ros2-iso"
+}
+```
+
+- `extraPaths` le deja a Pylance resolver los módulos de ROS (`rclpy`, `launch`, ...).
+- El perfil de terminal hace que cada terminal nueva de VS Code entre directo al
+  contenedor (y lo arranque si está apagado), solo en este proyecto. Si tu shell en el
+  contenedor es bash, cambia `zsh` por `bash`.
+- Por SSH funciona igual: el archivo se crea en la máquina remota, dentro del clon.
+
 ## Notas
 
 - La primera vez que se lanza `sim.launch.py` hace falta conexión a internet: el mundo
