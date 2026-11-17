@@ -25,7 +25,8 @@ delorian_ws/src/
 ├── delorian_bringup/           (vacío) lanzamiento del robot real
 ├── delorian_control/           (vacío) cinemática inversa, interfaz con el STM32
 ├── delorian_interfaces/        (vacío) mensajes y servicios propios
-└── delorian_navigation/        (vacío) Nav2 y rtabmap
+└── delorian_navigation/        estimación y navegación (Nav2 y rtabmap, en construcción)
+    └── launch/odometry.launch.py odometría visual (rtabmap rgbd_odometry) → /odom
 ```
 
 ## Árbol de frames (TF)
@@ -66,8 +67,21 @@ conserva el nombre y el tipo, así que el resto del sistema no se entera.
 | Tópico ROS 2 | Tipo | En simulación | En el robot real |
 |---|---|---|---|
 | `/odometry/wheel` | `nav_msgs/Odometry` | DiffDrive de gz | encoders, por micro-ROS |
+| `/odometry/ground_truth` | `nav_msgs/Odometry` | pose exacta (OdometryPublisher de gz) | no existe |
 
 No se llama `/odom` porque ese nombre lo usa `rgbd_odometry` para la odometría visual.
+`/odometry/ground_truth` sirve para medir el error de las estimaciones; su TF va aparte
+(`odometry/ground_truth/tf`) para no chocar con el de DiffDrive.
+
+**Odometría visual** (`delorian_navigation`)
+
+| Tópico ROS 2 | Tipo | En simulación | En el robot real |
+|---|---|---|---|
+| `/odom` | `nav_msgs/Odometry` | `rgbd_odometry` sobre la cámara de gz | `rgbd_odometry` sobre la OAK-D |
+
+Sigue puntos de la imagen entre cuadros y, con la profundidad, calcula el desplazamiento.
+Solo estima x, y y yaw (`Reg/Force3DoF`) y **no publica TF** (`publish_tf: false`): es
+una entrada más para el filtro de fusión, no la fuente de `odom → base_footprint`.
 
 **Cámara OAK-D S2**
 
@@ -130,6 +144,27 @@ Simulación completa (Gazebo + RViz):
 ros2 launch delorian_gz sim.launch.py
 ros2 launch delorian_gz sim.launch.py rviz:=false
 ros2 launch delorian_gz sim.launch.py world:=empty.sdf
+ros2 launch delorian_gz sim.launch.py gui:=false rviz:=false   # sin ventanas (por SSH)
+```
+
+Argumentos de `sim.launch.py`:
+
+| Argumento | Por defecto | Para qué |
+|---|---|---|
+| `world` | `delorian.sdf` | mundo de gz |
+| `rviz` | `true` | abrir RViz |
+| `gui` | `true` | `false` corre solo el servidor de gz (`-s --headless-rendering`); la cámara sigue renderizando |
+| `gz_ip` | `127.0.0.1` | IP por la que se anuncia gz-transport; cambiarla solo para verlo desde otro equipo |
+| `gz_partition` | `delorian` | partición de gz-transport |
+| `gz_relay` | (vacío) | IP del otro equipo cuando no hay multicast |
+
+Los tres últimos son para trabajar entre dos equipos: ver [remoto.md](remoto.md).
+
+Odometría visual, con la simulación corriendo (sin `use_sim_time:=true` los tiempos de las
+imágenes no cuadran con el reloj y no calcula nada):
+
+```sh
+ros2 launch delorian_navigation odometry.launch.py use_sim_time:=true
 ```
 
 Teleoperar el robot:
