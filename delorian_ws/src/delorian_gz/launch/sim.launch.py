@@ -9,7 +9,7 @@ from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
                             IncludeLaunchDescription, SetEnvironmentVariable)
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import Command, LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
@@ -26,6 +26,9 @@ def generate_launch_description():
     world = LaunchConfiguration('world')
     rviz = LaunchConfiguration('rviz')
 
+    gz_ip = LaunchConfiguration('gz_ip')
+    gui = LaunchConfiguration('gui')
+
     robot_description = ParameterValue(
         Command(['xacro ', xacro_file, ' sim:=true']), value_type=str)
 
@@ -34,20 +37,27 @@ def generate_launch_description():
                               description='Mundo de gz sim (archivo .sdf)'),
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Abrir RViz junto a Gazebo'),
-
+        DeclareLaunchArgument('gz_ip', default_value='127.0.0.1',
+                              description='IP por la que se anuncia gz-transport (LAN o Tailscale para verlo desde otro PC)'),
+        DeclareLaunchArgument('gui', default_value='true',
+                              description='false = solo servidor de gz, sin ventana'),
+                              
         # Para que gz resuelva package://delorian_description/meshes/...
         AppendEnvironmentVariable('GZ_SIM_RESOURCE_PATH', os.path.dirname(desc_pkg)),
 
         # gz-transport se anuncia por la primera interfaz que no sea lo, y si le toca
         # el wifi los procesos de gz no se ven entre si: la ventana sale en negro y
         # `create` se queda pidiendo mundos. Forzar loopback, que todo corre local.
-        SetEnvironmentVariable('GZ_IP', '127.0.0.1'),
+        SetEnvironmentVariable('GZ_IP', LaunchConfiguration('gz_ip')),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(ros_gz_sim_pkg, 'launch', 'gz_sim.launch.py')),
-            launch_arguments={'gz_args': ['-r ', world]}.items(),
-        ),
+            launch_arguments={'gz_args': [
+                '-r ',
+                PythonExpression(["'' if '", LaunchConfiguration('gui'),
+                                  "' == 'true' else '-s --headless-rendering '"]),
+                LaunchConfiguration('world')]}.items(),        ),
 
         Node(
             package='robot_state_publisher',
