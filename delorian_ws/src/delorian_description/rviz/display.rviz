@@ -4,12 +4,11 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
         - /TF1
         - /TF1/Frames1
-        - /Image1
-        - /PointCloud21
       Splitter Ratio: 0.5
-    Tree Height: 442
+    Tree Height: 1047
 Visualization Manager:
   Class: ""
   Displays:
@@ -72,6 +71,14 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        gps_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         oak_link:
           Alpha: 1
           Show Axes: false
@@ -116,6 +123,10 @@ Visualization Manager:
           Value: true
         front_right_wheel:
           Value: true
+        gps_link:
+          Value: true
+        imu_link:
+          Value: true
         oak_link:
           Value: true
         oak_optical_link:
@@ -140,6 +151,10 @@ Visualization Manager:
               {}
             front_right_wheel:
               {}
+            gps_link:
+              {}
+            imu_link:
+              {}
             oak_link:
               oak_optical_link:
                 {}
@@ -151,57 +166,10 @@ Visualization Manager:
           {}
       Update Interval: 0
       Value: true
-    - Class: rviz_default_plugins/Image
-      Enabled: true
-      Max Value: 1
-      Median window: 5
-      Min Value: 0
-      Name: Image
-      Normalize Range: true
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /oak/rgb/image_raw
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz_default_plugins/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: RGB8
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: PointCloud2
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Flat Squares
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /oak/depth/points
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_footprint
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -217,35 +185,33 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 5.127615928649902
+      Distance: 6.5118303298950195
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.7330624461174011
-        Y: 0.7487668991088867
-        Z: 1.529829740524292
+        X: 0.016666296869516373
+        Y: -0.07125022262334824
+        Z: 0.3742486834526062
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4650000035762787
+      Pitch: 0.6097978353500366
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 2.984999418258667
+      Yaw: 1.8349889516830444
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 946
+  Height: 1471
   Hide Left Dock: false
   Hide Right Dock: false
-  Image:
-    collapsed: false
-  QMainWindow State: 000000ff00000000fd00000001000000000000015600000358fc0200000002fb000000100044006900730070006c006100790073010000003d000002cd000000c900fffffffb0000000a0049006d0061006700650100000310000000850000001600ffffff000005bc0000035800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
-  Width: 1816
-  X: 1972
-  Y: 92
+  QMainWindow State: 000000ff00000000fd00000001000000000000016b00000543fc0200000002fb000000100044006900730070006c0061007900730100000056000005430000012600fffffffb0000000a0049006d00610067006501000004c8000000d10000000000000000000004030000054300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Width: 1399
+  X: 0
+  Y: 0
