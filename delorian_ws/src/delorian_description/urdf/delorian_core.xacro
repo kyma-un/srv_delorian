@@ -122,7 +122,9 @@
     <joint name="oak_optical_joint" type="fixed">
         <parent link="oak_link"/>
         <child link="oak_optical_link"/>
-        <origin xyz="0 0 0" rpy="${0} 0 ${0}"/>
+        <!-- Convención óptica (REP 103): z adelante, x derecha, y abajo. Las imágenes y
+             la profundidad se interpretan en este marco (rtabmap, rgbd_odometry). -->
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
     </joint>
     <!-- ===== IMU ===== -->
     <link name="imu_link"/>

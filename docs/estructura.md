@@ -21,6 +21,7 @@ delorian_ws/src/
 │
 ├── delorian_gz/                simulación en Gazebo
 │   ├── worlds/delorian.sdf       mundo: suelo, sol, sistema Sensors y cajas de prueba
+│   ├── worlds/laberinto.sdf      laberinto 15 x 15 m con paredes de colores (generar_laberinto.py)
 │   ├── config/bridge.yaml        puente gz <-> ROS 2 (ros_gz_bridge)
 │   └── launch/sim.launch.py      gz sim + rsp + spawn + bridge + RViz
 │
@@ -28,7 +29,12 @@ delorian_ws/src/
 ├── delorian_control/           (vacío) cinemática inversa, interfaz con el STM32
 ├── delorian_interfaces/        (vacío) mensajes y servicios propios
 └── delorian_navigation/        estimación y navegación (Nav2 y rtabmap, en construcción)
-    └── launch/odometry.launch.py odometría visual (rtabmap rgbd_odometry) → /odom
+    ├── config/ekf.yaml           EKF de robot_localization: ruedas (vx) + IMU (vyaw)
+    ├── launch/odometry.launch.py odometría visual (rtabmap rgbd_odometry) → /odom
+    ├── launch/localization.launch.py  EKF → /odometry/filtered y TF odom → base_footprint
+    ├── launch/mapping.launch.py  EKF + rtabmap SLAM → TF map → odom y mapa 2D /rtabmap/map
+    ├── config/nav2_params.yaml   Nav2 sin amcl ni map_server (mapa de rtabmap), RPP, nube OAK-D
+    └── launch/navigation.launch.py  Nav2 + RViz: objetivos con "2D Goal Pose"
 ```
 
 ## Árbol de frames (TF)
@@ -92,7 +98,7 @@ una entrada más para el filtro de fusión, no la fuente de `odom → base_footp
 | `/oak/rgb/image_raw` | `sensor_msgs/Image` | sensor `rgbd_camera` de gz | `depthai-ros` |
 | `/oak/depth/image_raw` | `sensor_msgs/Image` (32FC1) | sensor `rgbd_camera` de gz | `depthai-ros` |
 | `/oak/rgb/camera_info` | `sensor_msgs/CameraInfo` | sensor `rgbd_camera` de gz | `depthai-ros` |
-| `/oak/depth/points` | `sensor_msgs/PointCloud2` | sensor `rgbd_camera` de gz | `depthai-ros` |
+| `/oak/depth/points` | `sensor_msgs/PointCloud2` | `depth_image_proc` desde la profundidad reducida 4× (`/oak/depth_small`) | `depthai-ros` |
 
 **IMU** — 100 Hz, frame `imu_link`
 
@@ -200,3 +206,42 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
   ```
 - Al convertir el URDF a SDF, gz fusiona los links sin inercia unidos por joints fijos, así que
   el sensor aparece colgado de `base_footprint`. Es normal: la pose y el `frame_id` se conservan.
+
+## Mapeo en simulación
+
+```
+ros2 launch delorian_gz sim.launch.py odom_tf:=false        # terminal 1
+ros2 launch delorian_navigation mapping.launch.py           # terminal 2 (rtabmap_viz:=true para su interfaz)
+ros2 run teleop_twist_keyboard teleop_twist_keyboard        # terminal 3
+```
+
+- `odom_tf:=false` apaga la TF odom → base_footprint del DiffDrive; la publica el EKF.
+  Sin el EKF corriendo, usar `odom_tf:=true` (por defecto).
+- Árbol: `map` (rtabmap) → `odom` (EKF) → `base_footprint` → … En RViz: Fixed Frame `map`,
+  display Map en `/rtabmap/map`.
+- La base de datos queda en `~/.ros/rtabmap.db`; se borra al arrancar salvo `nuevo:=false`.
+- El yaw del EKF sale del giroscopio y coincide con el ground truth; el yaw de las ruedas
+  no sirve (skid-steer). Si el robot choca y las ruedas siguen girando, el EKF cree que
+  avanza: falta fusionar la odometría visual (`/odom`) para cubrir ese caso.
+- `gui:=false` (gz sin ventana) se cae en `ros2-iso` al iniciar el render de la cámara
+  (EGL sin driver de NVIDIA); con ventana funciona.
+
+## Navegación en simulación (mapear y navegar a la vez)
+
+```
+ros2 launch delorian_gz sim.launch.py odom_tf:=false rviz:=false \
+    world:=$(ros2 pkg prefix delorian_gz)/share/delorian_gz/worlds/laberinto.sdf
+ros2 launch delorian_navigation mapping.launch.py
+ros2 launch delorian_navigation navigation.launch.py   # RViz: "2D Goal Pose"
+```
+
+- Costmap global en ventana móvil de 30 x 30 m: se puede mandar a zonas sin mapear.
+- "2D Pose Estimate" no hace nada (no hay amcl; localiza rtabmap).
+- La nube `/oak/depth/points` sale de la profundidad reducida 4×: a resolución completa
+  (~4 MB por mensaje) DDS perdía mensajes y el `collision_monitor` frenaba el robot.
+- `oak_optical_joint` debe tener rpy `(-π/2, 0, -π/2)`: rtabmap y rgbd_odometry interpretan
+  la profundidad en convención óptica. Con rpy 0 el mapa salía en estrella.
+- Otro laberinto: `python3 generar_laberinto.py --base delorian.sdf --salida laberinto.sdf --semilla 12`
+  en `delorian_gz/worlds/` y recompilar `delorian_gz`.
+- Pendiente: con el PC saturado el controlador va a ~5 Hz y a veces gira en el sitio hasta
+  que el progress_checker aborta ("Failed to make progress").

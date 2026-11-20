@@ -1,0 +1,2190 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.10">
+  <world name="laberinto">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <plugin name="gz::sim::systems::Physics" filename="gz-sim-physics-system" />
+    <plugin name="gz::sim::systems::UserCommands" filename="gz-sim-user-commands-system" />
+    <plugin name="gz::sim::systems::SceneBroadcaster" filename="gz-sim-scene-broadcaster-system" />
+    <plugin name="gz::sim::systems::Sensors" filename="gz-sim-sensors-system">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name="gz::sim::systems::Imu" filename="gz-sim-imu-system" />
+    <plugin name="gz::sim::systems::NavSat" filename="gz-sim-navsat-system" />
+    <gravity>0 0 -9.8000000000000007</gravity>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>4.6381</latitude_deg>
+      <longitude_deg>-74.0845</longitude_deg>
+      <elevation>2600</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
+    <atmosphere type="adiabatic" />
+    <scene>
+      <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
+      <background>0.699999988 0.699999988 0.699999988 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.800000012 0.800000012 0.800000012 1</ambient>
+            <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
+      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <attenuation>
+        <range>10</range>
+        <linear>1</linear>
+        <constant>1</constant>
+        <quadratic>0</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <model name="laberinto">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link_laberinto">
+        <collision name="col_pared_0">
+          <pose>0.0000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_0">
+          <pose>0.0000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_0_p">
+          <pose>-0.9460 -1.1650 0.7333 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5848 0.0200 0.6951</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_0_n">
+          <pose>0.4239 -1.3350 0.7099 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4710 0.0200 0.5199</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_1">
+          <pose>2.5000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_1">
+          <pose>2.5000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_1_p">
+          <pose>2.0295 -1.1650 0.4709 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6178 0.0200 0.7893</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_1_n">
+          <pose>2.0306 -1.3350 0.6142 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4980 0.0200 0.5404</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_2">
+          <pose>5.0000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_2">
+          <pose>5.0000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_2_p">
+          <pose>4.1025 -1.1650 0.4064 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4672 0.0200 0.8300</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_2_n">
+          <pose>4.8160 -1.3350 0.6907 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6848 0.0200 0.3543</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_3">
+          <pose>7.5000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_3">
+          <pose>7.5000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_3_p">
+          <pose>7.9589 -1.1650 0.6193 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5377 0.0200 0.7059</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_3_n">
+          <pose>8.5450 -1.3350 0.3425 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4896 0.0200 0.7649</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_4">
+          <pose>10.0000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_4">
+          <pose>10.0000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_4_p">
+          <pose>10.1832 -1.1650 0.8016 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5725 0.0200 0.6119</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_4_n">
+          <pose>9.6405 -1.3350 0.7276 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6763 0.0200 0.5488</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_5">
+          <pose>12.5000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_5">
+          <pose>12.5000 -1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_5_p">
+          <pose>11.8378 -1.1650 0.5785 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4150 0.0200 0.8169</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_5_n">
+          <pose>11.5144 -1.3350 0.9184 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4797 0.0200 0.6846</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_6">
+          <pose>0.0000 1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_6">
+          <pose>0.0000 1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_6_p">
+          <pose>-0.5207 1.3350 0.9189 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4661 0.0200 0.5511</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_6_n">
+          <pose>-0.8203 1.1650 0.4633 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3705 0.0200 0.4624</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_7">
+          <pose>10.0000 1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_7">
+          <pose>10.0000 1.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.200 0.400 0.700 1.000</ambient>
+            <diffuse>0.200 0.400 0.700 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_7_p">
+          <pose>9.2535 1.3350 0.6742 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4128 0.0200 0.4020</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_7_n">
+          <pose>10.1559 1.1650 0.6608 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6812 0.0200 0.7833</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_8">
+          <pose>2.5000 3.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_8">
+          <pose>2.5000 3.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_8_p">
+          <pose>2.9141 3.8350 0.8460 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3216 0.0200 0.9297</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_8_n">
+          <pose>3.2000 3.6650 0.3725 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4570 0.0200 0.5793</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_9">
+          <pose>2.5000 8.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_9">
+          <pose>2.5000 8.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_9_p">
+          <pose>1.4713 8.8350 0.4136 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3269 0.0200 0.4461</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_9_n">
+          <pose>2.7367 8.6650 0.6756 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3410 0.0200 0.6967</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_10">
+          <pose>7.5000 8.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_10">
+          <pose>7.5000 8.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.200 0.400 0.700 1.000</ambient>
+            <diffuse>0.200 0.400 0.700 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_10_p">
+          <pose>6.3849 8.8350 0.4040 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6497 0.0200 0.7298</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_10_n">
+          <pose>8.5703 8.6650 0.3807 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5409 0.0200 0.6319</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_11">
+          <pose>0.0000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_11">
+          <pose>0.0000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_11_p">
+          <pose>-0.0461 11.3350 0.8248 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4247 0.0200 0.4009</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_11_n">
+          <pose>-0.0502 11.1650 0.4437 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5768 0.0200 0.6614</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.200 0.400 0.700 1.000</ambient>
+            <diffuse>0.200 0.400 0.700 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_12">
+          <pose>2.5000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_12">
+          <pose>2.5000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_12_p">
+          <pose>1.6695 11.3350 0.6697 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5173 0.0200 0.3189</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_12_n">
+          <pose>3.3538 11.1650 0.5567 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5785 0.0200 0.4828</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.200 0.900 1.000</ambient>
+            <diffuse>0.100 0.200 0.900 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_13">
+          <pose>5.0000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_13">
+          <pose>5.0000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_13_p">
+          <pose>5.6391 11.3350 0.5308 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5130 0.0200 0.8453</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_13_n">
+          <pose>5.2661 11.1650 0.4366 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6154 0.0200 0.8308</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_14">
+          <pose>10.0000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_14">
+          <pose>10.0000 11.2500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_14_p">
+          <pose>10.5637 11.3350 0.5489 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3907 0.0200 0.6623</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_14_n">
+          <pose>11.1506 11.1650 0.4356 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6160 0.0200 0.6306</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_15">
+          <pose>0.0000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_15">
+          <pose>0.0000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_15_p">
+          <pose>-0.1240 13.8350 0.9685 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6748 0.0200 0.9916</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_15_n">
+          <pose>-0.9857 13.6650 0.5364 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3409 0.0200 0.6291</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_16">
+          <pose>2.5000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_16">
+          <pose>2.5000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.200 0.400 0.700 1.000</ambient>
+            <diffuse>0.200 0.400 0.700 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_16_p">
+          <pose>3.6403 13.8350 0.9364 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5441 0.0200 0.3013</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_16_n">
+          <pose>3.2042 13.6650 0.9368 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3339 0.0200 0.7624</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_17">
+          <pose>5.0000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_17">
+          <pose>5.0000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_17_p">
+          <pose>5.9142 13.8350 0.3607 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.4736 0.0200 0.7451</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_17_n">
+          <pose>4.9134 13.6650 0.4112 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5973 0.0200 0.3594</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.200 0.900 1.000</ambient>
+            <diffuse>0.100 0.200 0.900 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_18">
+          <pose>7.5000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_18">
+          <pose>7.5000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_18_p">
+          <pose>6.6802 13.8350 0.4023 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6619 0.0200 0.8646</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_18_n">
+          <pose>8.6287 13.6650 0.6841 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.5629 0.0200 0.5453</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_19">
+          <pose>10.0000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_19">
+          <pose>10.0000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_19_p">
+          <pose>8.8585 13.8350 0.6686 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6884 0.0200 0.7548</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_19_n">
+          <pose>9.8445 13.6650 0.4477 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.6487 0.0200 0.8783</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_20">
+          <pose>12.5000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_20">
+          <pose>12.5000 13.7500 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>2.6500 0.1500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_20_p">
+          <pose>12.0135 13.8350 0.4816 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3962 0.0200 0.7105</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_20_n">
+          <pose>13.2854 13.6650 0.9284 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.3244 0.0200 0.8179</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_21">
+          <pose>-1.2500 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_21">
+          <pose>-1.2500 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.200 0.400 0.700 1.000</ambient>
+            <diffuse>0.200 0.400 0.700 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_21_p">
+          <pose>-1.1650 0.7404 0.9147 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5067 0.8790</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.200 0.900 1.000</ambient>
+            <diffuse>0.100 0.200 0.900 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_21_n">
+          <pose>-1.3350 0.0748 0.6081 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5094 0.3131</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.200 0.900 1.000</ambient>
+            <diffuse>0.100 0.200 0.900 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_22">
+          <pose>3.7500 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_22">
+          <pose>3.7500 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.200 0.400 0.700 1.000</ambient>
+            <diffuse>0.200 0.400 0.700 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_22_p">
+          <pose>3.8350 -1.1658 0.6314 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6197 0.4206</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_22_n">
+          <pose>3.6650 0.1327 0.6888 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4304 0.6628</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_23">
+          <pose>13.7500 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_23">
+          <pose>13.7500 0.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_23_p">
+          <pose>13.8350 -1.0415 0.3684 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3765 0.3295</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_23_n">
+          <pose>13.6650 0.1451 0.6103 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6040 0.9387</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_24">
+          <pose>-1.2500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_24">
+          <pose>-1.2500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_24_p">
+          <pose>-1.1650 2.7494 0.6557 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3798 0.4940</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_24_n">
+          <pose>-1.3350 2.5182 0.9132 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3991 0.6662</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_25">
+          <pose>3.7500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_25">
+          <pose>3.7500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_25_p">
+          <pose>3.8350 3.4230 0.5916 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3810 0.6133</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_25_n">
+          <pose>3.6650 2.3640 0.3512 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3290 0.4684</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_26">
+          <pose>6.2500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_26">
+          <pose>6.2500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_26_p">
+          <pose>6.3350 3.1672 0.8013 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6588 0.4081</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_26_n">
+          <pose>6.1650 2.1855 0.6274 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4012 0.3961</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_27">
+          <pose>8.7500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_27">
+          <pose>8.7500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_27_p">
+          <pose>8.8350 3.4046 0.4566 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3651 0.7675</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_27_n">
+          <pose>8.6650 3.6611 0.5496 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4615 0.5949</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_28">
+          <pose>11.2500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_28">
+          <pose>11.2500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_28_p">
+          <pose>11.3350 2.1850 0.7922 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4352 0.6211</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_28_n">
+          <pose>11.1650 2.1040 0.3450 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5496 0.6586</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_29">
+          <pose>13.7500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_29">
+          <pose>13.7500 2.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_29_p">
+          <pose>13.8350 1.5225 0.4271 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4088 0.9341</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_29_n">
+          <pose>13.6650 3.2515 0.9622 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6398 0.7732</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_30">
+          <pose>-1.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_30">
+          <pose>-1.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.200 0.900 1.000</ambient>
+            <diffuse>0.100 0.200 0.900 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_30_p">
+          <pose>-1.1650 5.0860 0.5289 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5059 0.6462</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_30_n">
+          <pose>-1.3350 3.9602 0.3507 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5753 0.5977</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_31">
+          <pose>1.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_31">
+          <pose>1.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_31_p">
+          <pose>1.3350 4.0331 0.4557 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4042 0.7257</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_31_n">
+          <pose>1.1650 5.8525 0.6871 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4815 0.5374</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_32">
+          <pose>6.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_32">
+          <pose>6.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.200 0.400 0.700 1.000</ambient>
+            <diffuse>0.200 0.400 0.700 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_32_p">
+          <pose>6.3350 4.1287 0.3766 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5108 0.4669</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.200 0.900 1.000</ambient>
+            <diffuse>0.100 0.200 0.900 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_32_n">
+          <pose>6.1650 4.4405 0.7401 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3725 0.9526</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_33">
+          <pose>11.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_33">
+          <pose>11.2500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.950 0.850 0.100 1.000</ambient>
+            <diffuse>0.950 0.850 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_33_p">
+          <pose>11.3350 4.5064 0.5429 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5000 0.4245</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_33_n">
+          <pose>11.1650 6.1621 0.6540 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3148 0.3129</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_34">
+          <pose>13.7500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_34">
+          <pose>13.7500 5.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_34_p">
+          <pose>13.8350 4.9407 0.8732 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6739 0.3744</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.050 0.800 0.800 1.000</ambient>
+            <diffuse>0.050 0.800 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_34_n">
+          <pose>13.6650 5.3678 0.9792 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5184 0.9221</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_35">
+          <pose>-1.2500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_35">
+          <pose>-1.2500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_35_p">
+          <pose>-1.1650 6.8307 0.9173 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3918 0.4390</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_35_n">
+          <pose>-1.3350 6.6533 0.8859 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6958 0.9873</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_36">
+          <pose>3.7500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_36">
+          <pose>3.7500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_36_p">
+          <pose>3.8350 7.7948 0.3388 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6519 0.6015</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_36_n">
+          <pose>3.6650 8.3020 0.4974 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6482 0.7694</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_37">
+          <pose>8.7500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_37">
+          <pose>8.7500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_37_p">
+          <pose>8.8350 7.0137 0.6121 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4838 0.4103</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_37_n">
+          <pose>8.6650 7.1807 0.5265 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4316 0.9894</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.100 0.100 1.000</ambient>
+            <diffuse>0.900 0.100 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_38">
+          <pose>13.7500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_38">
+          <pose>13.7500 7.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.450 0.050 1.000</ambient>
+            <diffuse>0.900 0.450 0.050 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_38_p">
+          <pose>13.8350 6.8370 0.3587 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3732 0.5347</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_38_n">
+          <pose>13.6650 7.5065 0.3035 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3804 0.6533</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.600 0.100 0.800 1.000</ambient>
+            <diffuse>0.600 0.100 0.800 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_39">
+          <pose>-1.2500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_39">
+          <pose>-1.2500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_39_p">
+          <pose>-1.1650 9.1631 0.5098 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5347 0.5758</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_39_n">
+          <pose>-1.3350 9.3721 0.8254 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5342 0.6704</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_40">
+          <pose>6.2500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_40">
+          <pose>6.2500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_40_p">
+          <pose>6.3350 10.6675 0.8045 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5386 0.8350</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_40_n">
+          <pose>6.1650 9.1762 0.3307 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5897 0.7503</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_41">
+          <pose>8.7500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_41">
+          <pose>8.7500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_41_p">
+          <pose>8.8350 9.8337 0.9369 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.5804 0.6539</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_41_n">
+          <pose>8.6650 10.1609 0.7805 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.6252 0.3113</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_42">
+          <pose>13.7500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_42">
+          <pose>13.7500 10.0000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.550 0.550 0.100 1.000</ambient>
+            <diffuse>0.550 0.550 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_42_p">
+          <pose>13.8350 10.3358 0.7460 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3340 0.3293</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.100 0.700 0.100 1.000</ambient>
+            <diffuse>0.100 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_42_n">
+          <pose>13.6650 9.7101 0.3132 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4806 0.3355</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <collision name="col_pared_43">
+          <pose>-1.2500 12.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="pared_43">
+          <pose>-1.2500 12.5000 0.6000 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.1500 2.6500 1.2000</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.700 0.350 0.150 1.000</ambient>
+            <diffuse>0.700 0.350 0.150 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_43_p">
+          <pose>-1.1650 11.8997 0.3491 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.4055 0.6199</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.400 0.700 0.100 1.000</ambient>
+            <diffuse>0.400 0.700 0.100 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+        <visual name="cartel_43_n">
+          <pose>-1.3350 13.4350 0.8220 0.0000 0.0000 0.0000</pose>
+          <geometry>
+            <box>
+              <size>0.0200 0.3368 0.6682</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.900 0.200 0.600 1.000</ambient>
+            <diffuse>0.900 0.200 0.600 1.000</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Construction Cone</uri>
+      <name>cono_0</name>
+      <pose>0.0000 12.5000 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Construction Cone</uri>
+      <name>cono_1</name>
+      <pose>10.0000 2.5000 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Construction Cone</uri>
+      <name>cono_2</name>
+      <pose>7.5000 10.0000 0 0 0 0</pose>
+    </include>
+  </world>
+</sdf>

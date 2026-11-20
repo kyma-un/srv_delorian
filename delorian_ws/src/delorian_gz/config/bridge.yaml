@@ -29,11 +29,16 @@
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
 
-- ros_topic_name: "/oak/depth/points"
-  gz_topic_name: "/oak/points"
-  ros_type_name: "sensor_msgs/msg/PointCloud2"
-  gz_type_name: "gz.msgs.PointCloudPacked"
+# Misma calibración para la profundidad (en gz la rgbd_camera tiene una sola)
+- ros_topic_name: "/oak/depth/camera_info"
+  gz_topic_name: "/oak/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
+
+# /oak/depth/points no se puentea: gz la publica con x adelante pero con el frame óptico
+# (z adelante), así que salía girada. La genera depth_image_proc en sim.launch.py a
+# partir de la imagen de profundidad, igual que con la OAK-D real.
 
 - ros_topic_name: "/odometry/wheel"
   gz_topic_name: "/odometry/wheel"
@@ -41,12 +46,8 @@
   gz_type_name: "gz.msgs.Odometry"
   direction: GZ_TO_ROS
 
-# odom -> base_footprint del DiffDrive. Quitar cuando robot_localization publique esta TF.
-- ros_topic_name: "/tf"
-  gz_topic_name: "/tf"
-  ros_type_name: "tf2_msgs/msg/TFMessage"
-  gz_type_name: "gz.msgs.Pose_V"
-  direction: GZ_TO_ROS
+# La TF odom -> base_footprint del DiffDrive (/tf de gz) se puentea aparte en
+# sim.launch.py, solo con odom_tf:=true, para no chocar con el EKF de robot_localization.
 
 - ros_topic_name: "/joint_states"
   gz_topic_name: "/joint_states"

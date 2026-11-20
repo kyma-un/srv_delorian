@@ -1,6 +1,7 @@
 # Lanza el Delorian en Gazebo (gz sim) con el puente a ROS 2.
 #   ros2 launch delorian_gz sim.launch.py
 #   ros2 launch delorian_gz sim.launch.py world:=empty.sdf rviz:=false
+#   ros2 launch delorian_gz sim.launch.py odom_tf:=false   (la TF odom la publica el EKF)
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -46,6 +47,9 @@ def generate_launch_description():
                               description='Partición de gz-transport; igual en las dos máquinas'),
         DeclareLaunchArgument('gz_relay', default_value='',
                               description='IP del otro equipo para descubrir sin multicast (VPN)'),
+        DeclareLaunchArgument('odom_tf', default_value='true',
+                              description='Puentear la TF odom -> base_footprint del DiffDrive. '
+                                          'false cuando la publica el EKF (mapping.launch.py)'),
 
 
         # Para que gz resuelva package://delorian_description/meshes/...
@@ -86,6 +90,43 @@ def generate_launch_description():
             package='ros_gz_bridge',
             executable='parameter_bridge',
             parameters=[{'config_file': bridge_file, 'use_sim_time': True}],
+        ),
+
+        # Profundidad reducida 4x (640x400 -> 160x100) para la nube: a resolución completa
+        # son ~4 MB por mensaje, DDS pierde mensajes y el collision_monitor de Nav2 frena.
+        Node(
+            package='image_proc',
+            executable='crop_decimate_node',
+            name='oak_depth_decimate',
+            parameters=[{'use_sim_time': True, 'decimation_x': 4, 'decimation_y': 4}],
+            remappings=[
+                # image_transport busca camera_info junto a la imagen:
+                # /oak/depth/camera_info (entrada) y /oak/depth_small/camera_info (salida)
+                ('in/image_raw', '/oak/depth/image_raw'),
+                ('out/image_raw', '/oak/depth_small/image_raw'),
+            ],
+        ),
+
+        # Nube de puntos desde la imagen de profundidad (marco óptico correcto)
+        Node(
+            package='depth_image_proc',
+            executable='point_cloud_xyz_node',
+            name='oak_point_cloud',
+            parameters=[{'use_sim_time': True}],
+            remappings=[
+                ('image_rect', '/oak/depth_small/image_raw'),
+                ('points', '/oak/depth/points'),
+            ],
+        ),
+
+        # odom -> base_footprint del DiffDrive (odometría de ruedas pura)
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='odom_tf_bridge',
+            arguments=['/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V'],
+            parameters=[{'use_sim_time': True}],
+            condition=IfCondition(LaunchConfiguration('odom_tf')),
         ),
 
         Node(
